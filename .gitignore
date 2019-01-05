@@ -34,5 +34,6 @@
 # Local builds and config
 build/
 .dolphin
+.directory
 .vscode/
 bin/
