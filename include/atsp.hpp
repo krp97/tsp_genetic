@@ -5,20 +5,20 @@
 #include "adjacency_matrix.hpp"
 #include "path.hpp"
 
-class tsp
+class atsp
 {
    public:
     double time_limit_;
     double temp_factor_;
 
-    tsp()  = default;
-    ~tsp() = default;
+    atsp()  = default;
+    ~atsp() = default;
 
-    tsp(const tsp&) = default;
-    tsp(tsp&&)      = default;
+    atsp(const atsp&) = default;
+    atsp(atsp&&)      = default;
 
-    tsp& operator=(const tsp&) = default;
-    tsp& operator=(tsp&&) = default;
+    atsp& operator=(const atsp&) = default;
+    atsp& operator=(atsp&&) = default;
 
     void load_from_file(std::string);
     bool is_loaded = false;

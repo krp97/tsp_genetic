@@ -1,6 +1,6 @@
-#include "../include/tsp.hpp"
+#include "../include/atsp.hpp"
 
-void tsp::load_from_file(std::string filepath)
+void atsp::load_from_file(std::string filepath)
 {
     try
     {

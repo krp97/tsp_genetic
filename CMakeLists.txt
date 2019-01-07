@@ -10,21 +10,27 @@ endif()
 project(tsp_genetic DESCRIPTION "ATSP Genetic Algorithms" LANGUAGES CXX)
 
 set(HEADERS
-    ${CMAKE_SOURCE_DIR}/include/tsp.hpp
+    ${CMAKE_SOURCE_DIR}/include/atsp.hpp
     ${CMAKE_SOURCE_DIR}/include/adjacency_matrix.hpp
     ${CMAKE_SOURCE_DIR}/include/file_handler.hpp
     ${CMAKE_SOURCE_DIR}/include/file_converter.hpp
     ${CMAKE_SOURCE_DIR}/include/path.hpp
-    ${CMAKE_SOURCE_DIR}/include/timer.hpp)
+    ${CMAKE_SOURCE_DIR}/include/timer.hpp
+    ${CMAKE_SOURCE_DIR}/include/organism.hpp
+    ${CMAKE_SOURCE_DIR}/include/population.hpp
+    ${CMAKE_SOURCE_DIR}/include/genetic_algorithm.hpp)
 
 set(SOURCES
     ${CMAKE_SOURCE_DIR}/src/main.cpp
-    ${CMAKE_SOURCE_DIR}/src/tsp.cpp
+    ${CMAKE_SOURCE_DIR}/src/atsp.cpp
     ${CMAKE_SOURCE_DIR}/src/adjacency_matrix.cpp
     ${CMAKE_SOURCE_DIR}/src/file_handler.cpp
     ${CMAKE_SOURCE_DIR}/src/file_converter.cpp
     ${CMAKE_SOURCE_DIR}/src/path.cpp
-    ${CMAKE_SOURCE_DIR}/src/utils.cpp)
+    ${CMAKE_SOURCE_DIR}/src/utils.cpp
+    ${CMAKE_SOURCE_DIR}/src/organism.cpp
+    ${CMAKE_SOURCE_DIR}/src/population.cpp
+    ${CMAKE_SOURCE_DIR}/src/genetic_algorithm.cpp)
     
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
