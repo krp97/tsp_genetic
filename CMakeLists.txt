@@ -14,7 +14,6 @@ set(HEADERS
     ${CMAKE_SOURCE_DIR}/include/adjacency_matrix.hpp
     ${CMAKE_SOURCE_DIR}/include/file_handler.hpp
     ${CMAKE_SOURCE_DIR}/include/file_converter.hpp
-    ${CMAKE_SOURCE_DIR}/include/path.hpp
     ${CMAKE_SOURCE_DIR}/include/timer.hpp
     ${CMAKE_SOURCE_DIR}/include/organism.hpp
     ${CMAKE_SOURCE_DIR}/include/population.hpp
@@ -26,9 +25,8 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/src/adjacency_matrix.cpp
     ${CMAKE_SOURCE_DIR}/src/file_handler.cpp
     ${CMAKE_SOURCE_DIR}/src/file_converter.cpp
-    ${CMAKE_SOURCE_DIR}/src/path.cpp
-    ${CMAKE_SOURCE_DIR}/src/utils.cpp
     ${CMAKE_SOURCE_DIR}/src/organism.cpp
+    ${CMAKE_SOURCE_DIR}/src/utils.cpp
     ${CMAKE_SOURCE_DIR}/src/population.cpp
     ${CMAKE_SOURCE_DIR}/src/genetic_algorithm.cpp)
     
@@ -38,6 +36,4 @@ set_target_properties(${PROJECT_NAME}
                       PROPERTIES CXX_STANDARD
                                  17
                                  CXX_STANDARD_REQUIRED
-                                 ON
-                                 COMPILE_FLAGS
-                                 "-Wno-missing-braces -Wall -Wextra -pedantic")
+                                 ON)

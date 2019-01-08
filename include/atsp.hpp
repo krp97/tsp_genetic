@@ -3,7 +3,7 @@
 #include <string>
 
 #include "adjacency_matrix.hpp"
-#include "path.hpp"
+#include "organism.hpp"
 
 class atsp
 {

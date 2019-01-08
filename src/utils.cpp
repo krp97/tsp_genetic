@@ -2,9 +2,6 @@
 #include <iostream>
 #include <random>
 
-#include "../include/adjacency_matrix.hpp"
-#include "../include/path.hpp"
-
 namespace utils {
 
 inline double random_double(double a, double b)
