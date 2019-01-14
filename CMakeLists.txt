@@ -16,6 +16,7 @@ set(HEADERS
     ${CMAKE_SOURCE_DIR}/include/file_handler.hpp
     ${CMAKE_SOURCE_DIR}/include/file_converter.hpp
     ${CMAKE_SOURCE_DIR}/include/timer.hpp
+    ${CMAKE_SOURCE_DIR}/include/greedy_search.hpp
     ${CMAKE_SOURCE_DIR}/include/organism.hpp
     ${CMAKE_SOURCE_DIR}/include/population.hpp
     ${CMAKE_SOURCE_DIR}/include/genetic_algorithm.hpp)
@@ -27,6 +28,7 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/src/adjacency_matrix.cpp
     ${CMAKE_SOURCE_DIR}/src/file_handler.cpp
     ${CMAKE_SOURCE_DIR}/src/file_converter.cpp
+    ${CMAKE_SOURCE_DIR}/src/greedy_search.cpp
     ${CMAKE_SOURCE_DIR}/src/organism.cpp
     ${CMAKE_SOURCE_DIR}/src/utils.cpp
     ${CMAKE_SOURCE_DIR}/src/population.cpp

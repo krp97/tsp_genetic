@@ -1,14 +1,19 @@
 #include "../include/population.hpp"
+#include "../include/greedy_search.hpp"
 #include "utils.cpp"
 
 namespace atsp_genetic {
 population::population(size_t population_size, Adjacency_Matrix& matrix)
     : entry_size_ {population_size}, organism_size_ {matrix.size() + 1}
 {
-    std::random_device dev;
     population_.resize(population_size);
-    for (auto& o_it : population_)
-        o_it = organism(matrix);
+    auto gs {greedy_search(matrix)};
+    population_[0] = gs.run();
+    for (auto o_it {population_.begin() + 1}; o_it != population_.end(); ++o_it)
+    {
+        (*o_it) = population_[0];
+        (*o_it).shuffle_path(matrix);
+    }
 }
 
 std::string population::to_string()

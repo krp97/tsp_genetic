@@ -37,6 +37,21 @@ void organism::insert(size_t index, int value)
     path_.insert(std::begin(path_) + index, value);
 }
 
+void organism::shuffle_path(Adjacency_Matrix& matrix)
+{
+    std::shuffle(
+        path_.begin() + 1, path_.end() - 1,
+        std::mt19937(
+            std::chrono::steady_clock::now().time_since_epoch().count()));
+    recalc_cost(matrix);
+}
+
+void organism::add_to_path(const int node, const int cost)
+{
+    path_.push_back(node);
+    cost_ += cost;
+}
+
 std::string organism::to_string() const
 {
     std::string organism {get_path_str()};
@@ -64,6 +79,7 @@ std::string organism::get_cost_str() const
 
 std::vector<int> organism::get_range(int a, int b) const
 {
-    return std::vector<int>(path_.begin() + std::min(a, b), path_.begin() + std::max(a, b));
+    return std::vector<int>(path_.begin() + std::min(a, b),
+                            path_.begin() + std::max(a, b));
 }
 }  // namespace atsp_genetic

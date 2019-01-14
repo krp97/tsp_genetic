@@ -38,6 +38,8 @@ class organism
     void erase(size_t index);
     void insert(size_t index, int value);
     void recalc_cost(Adjacency_Matrix& matrix);
+    void shuffle_path(Adjacency_Matrix& matrix);
+    void add_to_path(const int node, const int cost);
 
    protected:
     std::vector<int> path_;
