@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <functional>
 #include <random>
@@ -45,14 +47,14 @@ class population
     size_t organism_size_;
 
     // Crossover helper functions
-    static void order1(organism& org, std::vector<int>& path);
-    static void uniform(std::vector<int>& path, std::vector<int>::iterator it1,
-                        std::vector<int>::iterator it2);
+    static void order1_help(organism& org, std::vector<int>& path);
+    static void uniform_help(std::vector<int>& path,
+                             std::vector<int>::iterator it1,
+                             std::vector<int>::iterator it2);
     void add_organism(organism);
     void erase_organism(organism);
     void erase_organism(size_t index);
 
     organism& random_organism();
-    void fill_with_unique();
 };
 }  // namespace atsp_genetic

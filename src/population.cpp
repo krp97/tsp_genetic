@@ -41,11 +41,11 @@ organism population::order1(organism& organism1, organism& organism2,
     auto tmp_path   = std::vector<int>(organism1.size());
     std::copy(range_copy.begin(), range_copy.end(),
               tmp_path.begin() + std::min(first, second));
-    order1(organism2, tmp_path);
+    order1_help(organism2, tmp_path);
     return organism(tmp_path, matrix);
 }
 
-void population::order1(organism& org, std::vector<int>& path)
+void population::order1_help(organism& org, std::vector<int>& path)
 {
     int index {1};
     for (auto& o_it : org)
@@ -65,12 +65,13 @@ organism population::uniform(organism& organism1, organism& organism2,
     auto tmp_path                  = std::vector<int>(organism1.size());
     tmp_path[0]                    = 0;
     tmp_path[organism1.size() - 2] = 0;
-    uniform(tmp_path, it_org1, it_org2);
+    uniform_help(tmp_path, it_org1, it_org2);
     return organism(tmp_path, matrix);
 }
 
-void population::uniform(std::vector<int>& path, std::vector<int>::iterator it1,
-                         std::vector<int>::iterator it2)
+void population::uniform_help(std::vector<int>& path,
+                              std::vector<int>::iterator it1,
+                              std::vector<int>::iterator it2)
 {
     for (int index {1}; *it1 != 0 && *it2 != 0;)
     {
@@ -87,7 +88,7 @@ void population::uniform(std::vector<int>& path, std::vector<int>::iterator it1,
 
 organism& population::random_organism()
 {
-    int index {utils::random_int(1, organism_size_ - 2)};
+    int index {utils::random_int(0, population_.size() - 1)};
     return population_[index];
 }
 

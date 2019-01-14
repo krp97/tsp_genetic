@@ -2,19 +2,22 @@
 #include <iostream>
 #include <random>
 #include "../include/adjacency_matrix.hpp"
+#include "../include/menu_handler.hpp"
 #include "../include/population.hpp"
 #include "utils.cpp"
+
 int main()
 {
     srand(time(NULL));
-    auto matrix {Adjacency_Matrix("../data/tsp_6_2.txt")};
-    auto pop = atsp_genetic::population(10, matrix);
-
-    std::cout << " ----------------------RODZICE:\n";
-    std::cout << pop[1].to_string() << std::endl;
-    std::cout << pop[2].to_string() << std::endl;
-    std::cout << "-----------------------DZIECKO:\n";
-    std::cout
-        << atsp_genetic::population::uniform(pop[1], pop[2], matrix).to_string();
+    Menu m {Menu()};
+    std::vector<std::string> subtitles = {
+        "Set the time limit.",
+        "Set the crossover probability.",
+        "Set the mutation probability.",
+        "Load the graph from a file (.txt only).",
+        "Run the algorithms.",
+        "Convert from TSPLIB to txt.",
+        "Exit"};
+    m.run(subtitles, "Menu");
     return 0;
 }

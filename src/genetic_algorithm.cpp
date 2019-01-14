@@ -19,7 +19,7 @@ genetic_alg::genetic_alg(
 organism genetic_alg::run(Timer<organism>* timer, double crossover_prob,
                           double mutation_prob)
 {
-    while (!timer->is_finished())
+    while (timer->is_finished())
     {
         for (int i {0}; i < iterations; ++i)
         {
@@ -35,33 +35,63 @@ organism genetic_alg::run(Timer<organism>* timer, double crossover_prob,
 
 void genetic_alg::crossover()
 {
-    int index1 {utils::random_int(0, population_size_)};
-    int index2 {utils::random_int(0, population_size_)};
-    auto org = cross_fnc_(population_[index1], population_[index2], matrix_);
+    auto parents {roulette_wheel()};
+    auto org = cross_fnc_(parents.first, parents.second, matrix_);
     population_.expand_population(org);
 }
 
 std::pair<organism, organism> genetic_alg::roulette_wheel()
 {
-    auto probabilities {
-        std::vector<std::pair<double, size_t>>(population_.size())};
-    calc_rw_probabilities(probabilities);
-    std::sort(probabilities.begin(), probabilities.end(), sort_pairs());
-    auto output = {population_[probabilities[0].second],
-                   population_[probabilities[1].second]};
+    int overall_fit {get_fitness_sum()};
+    int inverted_fit {get_inverted_sum(overall_fit)};
+    auto probabilities {get_probabilities(inverted_fit, overall_fit)};
+    size_t first  = spin_roulette(probabilities);
+    size_t second = spin_roulette(probabilities, first);
+    return {population_[first], population_[second]};
 }
 
-void genetic_alg::calc_rw_probabilities(
-    std::vector<std::pair<double, size_t>>& prob)
+long genetic_alg::get_fitness_sum()
 {
-    int cost_sum {0};
+    long cost_sum {0};
     std::for_each(population_.begin(), population_.end(),
                   [&](organism& o) { cost_sum += o.get_cost(); });
+    return cost_sum;
+}
 
-    for (size_t i {0}; i < prob.size(); ++i)
+long genetic_alg::get_inverted_sum(int fitness_sum)
+{
+    long inverted_sum {0};
+    std::for_each(population_.begin(), population_.end(), [&](organism& o) {
+        inverted_sum += fitness_sum - o.get_cost();
+    });
+    return inverted_sum;
+}
+
+std::vector<double> genetic_alg::get_probabilities(int inverted_sum,
+                                                   int fitness_sum)
+{
+    auto probabilities {std::vector<double>(population_.size())};
+    double prev_prob {0.0};
+    for (size_t it {0}; it < population_.size(); ++it)
     {
-        prob[i].first  = 1 - (population_[i].get_cost() / cost_sum);
-        prob[i].second = i;
+        probabilities[it] = (fitness_sum - population_[it].get_cost()) /
+                            static_cast<double>(inverted_sum);
+        probabilities[it] += static_cast<double>(prev_prob);
+        prev_prob = probabilities[it];
     }
+    return probabilities;
+}
+
+size_t genetic_alg::spin_roulette(std::vector<double>& probabilities,
+                                  size_t ignore_index)
+{
+    double rand_prob {utils::random_double(0, 1)};
+    auto it      = std::find_if(probabilities.begin(), probabilities.end(),
+                           [&](double prob) { return rand_prob < prob; });
+    size_t index = it - probabilities.begin();
+    if (index == probabilities.size())
+        index = probabilities.size() - 1;
+    return index == ignore_index ? spin_roulette(probabilities, ignore_index)
+                                 : index;
 }
 }  // namespace atsp_genetic

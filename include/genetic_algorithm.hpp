@@ -1,5 +1,7 @@
-#include <functional>
+#pragma once
 
+#include <functional>
+#include <numeric>
 #include "adjacency_matrix.hpp"
 #include "organism.hpp"
 #include "population.hpp"
@@ -10,7 +12,7 @@ namespace atsp_genetic {
 class genetic_alg
 {
    public:
-    genetic_alg() = delete;
+    genetic_alg() = default;
     genetic_alg(
         Adjacency_Matrix&,
         std::function<organism(organism&, organism&, Adjacency_Matrix&)>
@@ -31,14 +33,17 @@ class genetic_alg
     Adjacency_Matrix& matrix_;
     std::function<organism(organism&, organism&, Adjacency_Matrix&)> cross_fnc_;
     std::function<void(population&, Adjacency_Matrix&)> mutation_fnc_;
-    population population_;
     size_t population_size_;
-    std::random_device r;
-    const size_t iterations = 5;
+    population population_;
+    size_t iterations = 10;
 
     void crossover();
     std::pair<organism, organism> roulette_wheel();
-    void calc_rw_probabilities(std::vector<std::pair<double, size_t>>& prob);
+    long get_fitness_sum();
+    long get_inverted_sum(int fitness_sum);
+    std::vector<double> get_probabilities(int inverted_sum, int fitness_sum);
+    size_t spin_roulette(std::vector<double>& probabilities,
+                         size_t ignore_index = -1);
 
     struct sort_pairs
     {
