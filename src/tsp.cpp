@@ -16,7 +16,7 @@ atsp_genetic::organism tsp::genetic_algo(
     std::function<void(atsp_genetic::population&, Adjacency_Matrix&)>
         mutation_fnc_)
 {
-    auto ga = atsp_genetic::genetic_alg(matrix_, cross_fnc_, mutation_fnc_, 50);
+    auto ga = atsp_genetic::genetic_alg(matrix_, cross_fnc_, mutation_fnc_, 10);
     Timer<atsp_genetic::organism> timer = Timer<atsp_genetic::organism>(
         [&](Timer<atsp_genetic::organism>* timer) -> atsp_genetic::organism {
             return ga.run(timer, cross_prob_, mutation_prob_);

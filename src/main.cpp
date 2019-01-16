@@ -11,7 +11,7 @@ int main()
     srand(time(NULL));
     Menu m {Menu()};
     std::vector<std::string> subtitles = {
-        "Set the time limit.",
+        "Set the time limit [ms].",
         "Set the crossover probability.",
         "Set the mutation probability.",
         "Load the graph from a file (.txt only).",
